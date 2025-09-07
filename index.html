@@ -82,12 +82,12 @@
     <main>
       <!-- choose our trees -->
       <section class="bg-[#f0fdf4]">
-        <h2 class="text-2xl font-bold mt-20 mb-3 text-center">
+        <h2 class="md:text-3xl text-2xl font-bold md:mt-20 m-8 mb-3 text-center">
           Choose Our Trees
         </h2>
         <!-- our trees container -->
-        <div class="grid grid-cols-12 gap-10 w-11/12 mx-auto">
-          <aside class="col-span-2">
+        <div class="grid md:grid-cols-12 gap-10 w-11/12 mx-auto">
+          <aside class="md:col-span-2 border">
             <!-- categories -->
             <div class="">
               <ul class="menu w-full">
@@ -122,7 +122,7 @@
             </div>
           </aside>
           <!-- card container -->
-          <div class="col-span-8 grid grid-cols-3 gap-10">
+          <div class="md:col-span-8 grid md:grid-cols-3 gap-10">
             <!-- card 1 -->
             <div class="card bg-base-100 shadow-sm rounded-xl p-5">
               <figure class="rounded-xl h-[250px]">
@@ -195,6 +195,7 @@
                 </div>
               </div>
             </div>
+
             <div class="card bg-base-100 shadow-sm rounded-xl p-5">
               <figure class="rounded-xl h-[250px]">
                 <img
@@ -230,6 +231,79 @@
                 </div>
               </div>
             </div>
+
+            <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="https://i.ibb.co.com/cSQdg7tf/mango-min.jpg"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">Mango Tree</h2>
+                <p>
+                  A fast-growing tropical tree that produces delicious, juicy
+                  mangoes during summer. Its dense green
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    Fruit Tree
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>500</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="https://i.ibb.co.com/cSQdg7tf/mango-min.jpg"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">Mango Tree</h2>
+                <p>
+                  A fast-growing tropical tree that produces delicious, juicy
+                  mangoes during summer. Its dense green
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    Fruit Tree
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>500</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
             <div class="card bg-base-100 shadow-sm rounded-xl p-5">
               <figure class="rounded-xl h-[250px]">
                 <img
@@ -268,7 +342,7 @@
           </div>
 
           <!-- cart right -->
-          <aside class="rounded-2xl col-span-2 bg-white p-3">
+          <aside class="rounded-2xl md:col-span-2 bg-white p-3 border">
             <h2 class="font-semibold text-2xl my-2">Your Cart</h2>
             <!-- cart card -->
             <div
@@ -294,18 +368,21 @@
       <!-- about campaign -->
 
       <section class="bg-[#f0fdf4] pb-10">
-        <h2 class="text-center font-bold text-3xl py-5 pt-16">
+        <h2 class="text-center font-bold text-2xl md:text-3xl py-5 pt-16">
           About The Campaign
         </h2>
-        <div class="grid grid-cols-12 gap-10 w-11/12 mx-auto">
+        <div class="md:grid grid-cols-12 gap-10 w-11/12 mx-auto">
           <div class="col-span-2"></div>
 
-          <div class="col-span-8 flex justify-between items-center">
-            <figure class="w-1/2">
+          <div class="md:col-span-8 md:flex justify-between items-center">
+
+            <!-- campaign left -->
+            <figure class="md:w-1/2">
               <img src="./assets/about.png" alt="" class="rounded-xl" />
             </figure>
 
-            <div class="w-1/2 text-lg">
+            <!-- campaign right -->
+            <div class="md:w-1/2 md:text-lg mt-5 md:mt-0 text-justify">
               <p class="text-gray-600">
                 Green Earth is a global tree plantation initiative dedicated to
                 fighting climate change. Since our start, we’ve planted over
@@ -313,7 +390,7 @@
                 restore forests, create habitats for wildlife, and combat global
                 warming.
               </p>
-              <ul class="list-disc text-gray-600 mt-5">
+              <ul class="list-disc text-gray-600 mt-5 pl-5">
                 <li>Restoration of natural habitats</li>
                 <li>Improvement of air quality</li>
                 <li>Support for local communities</li>

@@ -10,7 +10,8 @@ const getAllCategories = () => {
 
 // displaying all categories
 const displayAll = data => {
-    const categoriesArr = data.categories
+  const categoriesArr = data.categories
+  
     const allCategoriesContainer = document.getElementById( 'all-categories-container' )
     categoriesArr.forEach(categoryItem => {
         const category = categoryItem.category_name
@@ -26,15 +27,77 @@ const displayAll = data => {
         `
       allCategoriesContainer.appendChild( treeCategory )
     } );
-  const x = document.querySelectorAll( '.trees' )
-  x.forEach( ( s ) => {
-    s.addEventListener( 'click', () => {
-      x.forEach( el => {
+  const treesClasses = document.querySelectorAll( '.trees' )
+  treesClasses.forEach( ( categoryName ) => {
+
+    
+    categoryName.addEventListener( 'click', () => {
+      
+      // if category is Fruit Tree
+      if ( categoryName.innerText == 'Fruit Tree' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/1' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+
+
+
+
+      }
+
+      treesClasses.forEach( el => {
         el.classList.remove('active')
       } )
-      s.classList.add('active')
+      categoryName.classList.add('active')
     })
   })
 }
 getAllCategories()
-

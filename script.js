@@ -263,9 +263,352 @@ const displayAll = data => {
       // if Medicinal Tree ends
 
 
+      // if category is Timber Tree
+      if ( categoryName.innerText == 'Timber Tree' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/5' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Timber Tree ends
 
 
+      // if category is Evergreen Tree
+      if ( categoryName.innerText == 'Evergreen Tree' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/6' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
 
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Evergreen Tree ends
+
+
+      // if category is Ornamental Plant
+      if ( categoryName.innerText == 'Ornamental Plant' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/7' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Ornamental Plant ends
+
+
+            // if category is Bamboo
+      if ( categoryName.innerText == 'Bamboo' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/8' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Bamboo ends
+
+
+      // if category is Climber Tree
+      if ( categoryName.innerText == 'Climber' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/9' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Climber ends
+
+
+      // if category is Aquatic Plant
+      if ( categoryName.innerText == 'Aquatic Plant' ) {
+        const cardContainer = document.getElementById( "card-container" )
+        cardContainer.innerHTML = ''
+        fetch( 'https://openapi.programming-hero.com/api/category/10' )
+          .then( res => res.json() )
+          .then( plants => {
+            const fruitPlantsArr = plants.plants
+            fruitPlantsArr.forEach( fruitTree => {
+              console.log(fruitTree)
+              const tree = document.createElement( 'div' )
+              tree.innerHTML = `
+              
+              <div class="card bg-base-100 shadow-sm rounded-xl p-5">
+              <figure class="rounded-xl h-[250px]">
+                <img
+                  src="${fruitTree.image}"
+                  alt=""
+                  class="rounded-xl block"
+                />
+              </figure>
+              <div class="card-body p-0">
+                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <p>
+                  ${fruitTree.description}
+                </p>
+
+                <div class="flex justify-between my-2">
+                  <p
+                    class="category bg-[#dcfce7] text-center font-medium text-lg rounded-3xl text-[#15803d] w-5 py-1"
+                  >
+                    ${fruitTree.category}
+                  </p>
+                  <p class="price text-right font-bold text-lg">
+                    $ <span>${fruitTree.price}</span>
+                  </p>
+                </div>
+
+                <div class="card-actions justify-end">
+                  <button
+                    class="btn btn-primary w-full bg-[#15803d] border-none shadow-none rounded-3xl"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+              
+              
+              `
+              cardContainer.appendChild(tree)
+
+          })
+        })
+      }
+      // if Aquatic Plant ends
 
 
 

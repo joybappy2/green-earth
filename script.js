@@ -7,6 +7,7 @@ const getAllCategories = () => {
         })
 }
 
+
 // displaying all categories
 const displayAll = data => {
     const categoriesArr = data.categories
@@ -17,13 +18,23 @@ const displayAll = data => {
         treeCategory.innerHTML = `
                
                 <li
-                  class="hover:bg-[#15803d] hover:text-white rounded-lg text-lg/4"
+                  
+                  class="trees hover:bg-[#15803d] hover:text-white rounded-lg text-lg/4"
                 >
                   <a>${category}</a>
                 </li>
         `
-        allCategoriesContainer.appendChild(treeCategory)
-    });
+      allCategoriesContainer.appendChild( treeCategory )
+    } );
+  const x = document.querySelectorAll( '.trees' )
+  x.forEach( ( s ) => {
+    s.addEventListener( 'click', () => {
+      x.forEach( el => {
+        el.classList.remove('active')
+      } )
+      s.classList.add('active')
+    })
+  })
 }
-
 getAllCategories()
+

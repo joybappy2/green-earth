@@ -162,9 +162,22 @@ const displayAll = data => {
             const xContainer = document.getElementById('cart-card-container')
             xContainer.addEventListener( 'click', ( event ) => {
               const xButton = event.target
+              const totalPriceItem = document.getElementById( 'total-default-price' )
+              let totalPrice = parseInt( totalPriceItem.innerText )
+              
+              console.log(totalPrice,"total price before")
               if ( xButton.classList.contains( 'remove-item' ) ) {
                 const xButtonContainer = xButton.parentNode.parentNode
+                const removedTreePriceEl = xButtonContainer.querySelector( '.tree-price' )
+                const removedPrice = parseInt( removedTreePriceEl.innerText )
+                
+                // 
+                totalPrice>0 ? totalPrice -= removedPrice : alert('Not Possible')
+                
+                totalPriceItem.innerText = totalPrice
+
                 xButtonContainer.remove()
+
               }
               // if end
             })

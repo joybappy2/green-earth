@@ -1,22 +1,23 @@
 // fetching all categories
 const getAllCategories = () => {
-    fetch( "https://openapi.programming-hero.com/api/categories#" )
-        .then( response => response.json() )
-        .then( allCategoriesData => {
-            displayAll(allCategoriesData)
-        })
-}
-
+  fetch("https://openapi.programming-hero.com/api/categories#")
+    .then((response) => response.json())
+    .then((allCategoriesData) => {
+      displayAll(allCategoriesData);
+    });
+};
 
 // displaying all categories
-const displayAll = data => {
-  const categoriesArr = data.categories
-  
-    const allCategoriesContainer = document.getElementById( 'all-categories-container' )
-    categoriesArr.forEach(categoryItem => {
-        const category = categoryItem.category_name
-        const treeCategory = document.createElement( 'li' )
-        treeCategory.innerHTML = `
+const displayAll = (data) => {
+  const categoriesArr = data.categories;
+
+  const allCategoriesContainer = document.getElementById(
+    "all-categories-container"
+  );
+  categoriesArr.forEach((categoryItem) => {
+    const category = categoryItem.category_name;
+    const treeCategory = document.createElement("li");
+    treeCategory.innerHTML = `
                
                 <li
                   
@@ -24,28 +25,23 @@ const displayAll = data => {
                 >
                   <a>${category}</a>
                 </li>
-        `
-      allCategoriesContainer.appendChild( treeCategory )
-    } );
-  const treesClasses = document.querySelectorAll( '.trees' )
-  treesClasses.forEach( ( categoryName ) => {
-
-
-    categoryName.addEventListener( 'click', () => {
-      
+        `;
+    allCategoriesContainer.appendChild(treeCategory);
+  });
+  const treesClasses = document.querySelectorAll(".trees");
+  treesClasses.forEach((categoryName) => {
+    categoryName.addEventListener("click", () => {
       // if category is Fruit Tree
-      if ( categoryName.innerText == 'Fruit Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/1' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
+      if (categoryName.innerText == "Fruit Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/1")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
 
-
-            fruitPlantsArr.forEach( fruitTree => {
-
-              const tree = document.createElement( 'div' )
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -83,39 +79,39 @@ const displayAll = data => {
                 </div>
               </div>
             </div>
-              `
-              cardContainer.appendChild( tree )
-            }
-          )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-            
-
 
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -127,89 +123,92 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              const totalPriceItem = document.getElementById( 'total-default-price' )
-              let totalPrice = parseInt( totalPriceItem.innerText )
-              
-              console.log(totalPrice,"total price before")
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                const removedTreePriceEl = xButtonContainer.querySelector( '.tree-price' )
-                const removedPrice = parseInt( removedTreePriceEl.innerText )
-                
-                // 
-                totalPrice>0 ? totalPrice -= removedPrice : alert('Not Possible')
-                
-                totalPriceItem.innerText = totalPrice
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              const totalPriceItem = document.getElementById(
+                "total-default-price"
+              );
+              let totalPrice = parseInt(totalPriceItem.innerText);
 
-                xButtonContainer.remove()
+              console.log(totalPrice, "total price before");
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                const removedTreePriceEl =
+                  xButtonContainer.querySelector(".tree-price");
+                const removedPrice = parseInt(removedTreePriceEl.innerText);
 
+                //
+                totalPrice > 0
+                  ? (totalPrice -= removedPrice)
+                  : alert("Not Possible");
+
+                totalPriceItem.innerText = totalPrice;
+
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll('.card-title')
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
+            const cardTitle = document.querySelectorAll(".card-title");
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+                // fetching tree data by id after clickig title
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -220,31 +219,26 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
-            
-            
-          } )
-      } 
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
+          });
+      }
       // if fruits ends
 
       // if category is Flowering Tree
-      if ( categoryName.innerText == 'Flowering Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/2' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Flowering Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/2")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -284,41 +278,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
-
-
 
             // newwwwwwwwwwwwwwww flower
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -330,75 +323,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
-            
 
-            
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-            
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -409,33 +403,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-            
-
-        })
+          });
       }
       // if Flowering Tree ends
 
-
       // if category is Shade Tree
-      if ( categoryName.innerText == 'Shade Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/3' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Shade Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/3")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -475,39 +463,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
 
             // newwwwwwwwwwwwwwwwwwwwwwww shade
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -519,76 +508,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -599,32 +588,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-
-        })
+          });
       }
       // if Shade Tree ends
 
-
       // if category is Meidcinal Tree
-      if ( categoryName.innerText == 'Medicinal Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/4' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Medicinal Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/4")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -664,38 +648,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
 
             // newwwwwwwwwwwwwwwwwwww medicinal
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -707,76 +693,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -787,31 +773,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Medicinal Tree ends
 
-
       // if category is Timber Tree
-      if ( categoryName.innerText == 'Timber Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/5' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Timber Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/5")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -851,38 +833,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
 
-
-            // newwwwwwwwwwwwwwwwww  Timber 
+            // newwwwwwwwwwwwwwwwww  Timber
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -894,77 +878,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -975,32 +958,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Timber Tree ends
 
-
       // if category is Evergreen Tree
-      if ( categoryName.innerText == 'Evergreen Tree' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/6' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-             
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Evergreen Tree") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/6")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -1040,39 +1018,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
-
 
             // newwwwwwwwwwwwwwwwwwwwwwwww evergreen
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -1084,77 +1063,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -1165,32 +1143,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Evergreen Tree ends
 
-
       // if category is Ornamental Plant
-      if ( categoryName.innerText == 'Ornamental Plant' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/7' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Ornamental Plant") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/7")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -1230,40 +1203,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
-
-
 
             // newwwwwwwwwwwwww ornamenteal
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -1275,78 +1248,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -1357,31 +1328,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Ornamental Plant ends
 
-
       // if category is Bamboo
-      if ( categoryName.innerText == 'Bamboo' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/8' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Bamboo") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/8")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -1421,39 +1388,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
 
             // newwwwwwwwwwwww bamboo
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -1465,79 +1433,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -1548,32 +1513,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Bamboo ends
 
-
       // if category is Climber Tree
-      if ( categoryName.innerText == 'Climber' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/9' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Climber") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/9")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -1613,40 +1573,41 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
+              `;
+              cardContainer.appendChild(tree);
+            });
 
-            } )
-            
             // card append end
-
 
             // newwwwwwwwww climber
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -1658,80 +1619,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-            
-
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-          
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -1742,31 +1699,27 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Climber ends
 
-
       // if category is Aquatic Plant
-      if ( categoryName.innerText == 'Aquatic Plant' ) {
-        const cardContainer = document.getElementById( "card-container" )
-        cardContainer.innerHTML = ''
-        fetch( 'https://openapi.programming-hero.com/api/category/10' )
-          .then( res => res.json() )
-          .then( plants => {
-            const fruitPlantsArr = plants.plants
-            fruitPlantsArr.forEach( fruitTree => {
-              const tree = document.createElement( 'div' )
+      if (categoryName.innerText == "Aquatic Plant") {
+        const cardContainer = document.getElementById("card-container");
+        cardContainer.innerHTML = "";
+        fetch("https://openapi.programming-hero.com/api/category/10")
+          .then((res) => res.json())
+          .then((plants) => {
+            const fruitPlantsArr = plants.plants;
+            fruitPlantsArr.forEach((fruitTree) => {
+              const tree = document.createElement("div");
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
@@ -1806,40 +1759,40 @@ const displayAll = data => {
             </div>
               
               
-              `
-              cardContainer.appendChild(tree)
-
-            } )
+              `;
+              cardContainer.appendChild(tree);
+            });
             // card append end
-
-
 
             // nnewwwwwwwwwwwwwww  aquatic
             // cart btns click event starts
-            const cartButtons = document.querySelectorAll('.cart-btn')
-            cartButtons.forEach( button => {
-              button.addEventListener( 'click', () => {
+            const cartButtons = document.querySelectorAll(".cart-btn");
+            cartButtons.forEach((button) => {
+              button.addEventListener("click", () => {
                 // console.log( button )
-                const treeId = button.getAttribute( 'id' )
-
+                const treeId = button.getAttribute("id");
 
                 // fetching tree data by id after clickig title
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        const treePrice = data.plants.price
-                        const treeName = data.plants.name
-                        // console.log( treePrice, treeName )
-                        
-                        // gettin cart container
-                        const cartContainer = document.getElementById( 'cart-card-container' )
-                        // cartContainer.innerHTML = ''
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      const treePrice = data.plants.price;
+                      const treeName = data.plants.name;
+                      // console.log( treePrice, treeName )
 
-                        // creating card
-                        const cartCard = document.createElement( 'div' )
-                        cartCard.setAttribute('id', "pawa-geche")
-                        cartCard.innerHTML = `
+                      // gettin cart container
+                      const cartContainer = document.getElementById(
+                        "cart-card-container"
+                      );
+                      // cartContainer.innerHTML = ''
+
+                      // creating card
+                      const cartCard = document.createElement("div");
+                      cartCard.setAttribute("id", "pawa-geche");
+                      cartCard.innerHTML = `
                         
                         <div class="flex justify-between items-center p-3 bg-[#f0fdf4] rounded-xl">
                           <div>
@@ -1851,79 +1804,76 @@ const displayAll = data => {
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
                         </div>
                         
-                        `
+                        `;
 
-                        // append cart card
-                        cartContainer.appendChild( cartCard )
+                      // append cart card
+                      cartContainer.appendChild(cartCard);
 
-                        // accessing all price in container
-                        let totalPrice = 0
-                        const priceList = document.querySelectorAll( '.tree-price' )
-                        priceList.forEach( price => {
-                          const priceN = parseInt( price.innerText )
-                          // console.log(priceN)
-                          totalPrice += priceN
-                        } )
-                        
-                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
-                        totalDefaultPrice.innerText = totalPrice
-                        
-                        // console.log(cartContainer)
-                        // end
-                      })
-                }
+                      // accessing all price in container
+                      let totalPrice = 0;
+                      const priceList =
+                        document.querySelectorAll(".tree-price");
+                      priceList.forEach((price) => {
+                        const priceN = parseInt(price.innerText);
+                        // console.log(priceN)
+                        totalPrice += priceN;
+                      });
+
+                      const totalDefaultPrice = document.getElementById(
+                        "total-default-price"
+                      );
+                      totalDefaultPrice.innerText = totalPrice;
+
+                      // console.log(cartContainer)
+                      // end
+                    });
+                };
                 // get tree fn end
-                getTree(treeId)
-              })
-            })
+                getTree(treeId);
+              });
+            });
             // cart btns click event end
 
-
-
-
-
             // .............................................................
-            // x button click event starts 
-            const xContainer = document.getElementById('cart-card-container')
-            xContainer.addEventListener( 'click', ( event ) => {
-              const xButton = event.target
-              if ( xButton.classList.contains( 'remove-item' ) ) {
-                const xButtonContainer = xButton.parentNode.parentNode
-                xButtonContainer.remove()
+            // x button click event starts
+            const xContainer = document.getElementById("cart-card-container");
+            xContainer.addEventListener("click", (event) => {
+              const xButton = event.target;
+              if (xButton.classList.contains("remove-item")) {
+                const xButtonContainer = xButton.parentNode.parentNode;
+                xButtonContainer.remove();
               }
               // if end
-            })
+            });
             // x  button click ends
 
-
-
-
-
             // card title click event
-            const cardTitle = document.querySelectorAll( '.card-title' )
+            const cardTitle = document.querySelectorAll(".card-title");
             // console.log(cardTitle)
-              cardTitle.forEach( title => {
-                title.addEventListener( 'click', () => {
-                  const treeId = title.getAttribute( 'id' )
-                  
-                  // fetching tree data after clickig title by id
-                  const getTree = ( id ) => {
-                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
-                      .then( res => res.json() )
-                      .then( data => {
-                        displayTree(data)
-                      })
-                  }
+            cardTitle.forEach((title) => {
+              title.addEventListener("click", () => {
+                const treeId = title.getAttribute("id");
 
-                  getTree( treeId )
-                  const displayTree = (data) => {
-                    const treeDt = data.plants
-                    
-                    const modalContainer = document.getElementById( 'my_modal_3' )
-                    modalContainer.innerHTML = ''
-                    const modals = document.createElement( 'div' )
-                    
-                    modals.innerHTML = `
+                // fetching tree data after clickig title by id
+                const getTree = (id) => {
+                  fetch(
+                    `https://openapi.programming-hero.com/api/plant/${treeId}`
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      displayTree(data);
+                    });
+                };
+
+                getTree(treeId);
+                const displayTree = (data) => {
+                  const treeDt = data.plants;
+
+                  const modalContainer = document.getElementById("my_modal_3");
+                  modalContainer.innerHTML = "";
+                  const modals = document.createElement("div");
+
+                  modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -1934,29 +1884,23 @@ const displayAll = data => {
                       <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
                       <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    `
-                    modalContainer.appendChild( modals )
-                    my_modal_3.showModal()
-                    
-                  }
-
-                }
-              )
-              } )
+                    `;
+                  modalContainer.appendChild(modals);
+                  my_modal_3.showModal();
+                };
+              });
+            });
             // end card title event
-        })
+          });
       }
       // if Aquatic Plant ends
 
-
-
-
       // category selecting effect
-      treesClasses.forEach( el => {
-        el.classList.remove('active')
-      } )
-      categoryName.classList.add('active')
-    })
-  })
-}
-getAllCategories()
+      treesClasses.forEach((el) => {
+        el.classList.remove("active");
+      });
+      categoryName.classList.add("active");
+    });
+  });
+};
+getAllCategories();

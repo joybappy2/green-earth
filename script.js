@@ -20,7 +20,7 @@ const displayAll = data => {
                
                 <li
                   
-                  class="trees hover:bg-[#15803d] hover:text-white rounded-lg text-lg/4"
+                  class="trees hover:bg-[#15803d] hover:text-white rounded-lg text-lg/4 pl-0"
                 >
                   <a>${category}</a>
                 </li>
@@ -41,12 +41,15 @@ const displayAll = data => {
           .then( res => res.json() )
           .then( plants => {
             const fruitPlantsArr = plants.plants
+
+
             fruitPlantsArr.forEach( fruitTree => {
+
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
               <div class="card bg-base-100 shadow-sm rounded-xl p-5">
-              <figure class="rounded-xl h-[250px]">
+              <figure class="rounded-xl h-[300px]">
                 <img
                   src="${fruitTree.image}"
                   alt=""
@@ -54,7 +57,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -82,10 +85,46 @@ const displayAll = data => {
               
               
               `
-              cardContainer.appendChild(tree)
+              cardContainer.appendChild( tree )
+            }
+              // end
+            )
+            const cardTitle = document.querySelectorAll('.card-title')
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  // modal events start here
+                  
+                  const treeId = title.getAttribute( 'id' )
+                  console.log(treeId)
+                  if ( title.innerText == 'Mango Tree' ) {
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    console.log(treeId)
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">Mango Tree</h3>
+                      
+                      <p>id=${treeId}</p>
 
-          })
-        })
+                      <img src="https://i.ibb.co.com/cSQdg7tf/mango-min.jpg" class="h-[300px] w-full object-cover rounded-lg">
+
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category:</span> tree</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price:</span> 5000</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas odio mollitia nisi repellat, enim impedit consequatur molestias veritatis quod corporis, ipsum quia ea? Sint, libero? Quis quidem totam repellat debitis.</p>
+                    </div>
+                    
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                  }
+                }
+              )
+            })
+          } )
       } 
       // if fruits ends
 
@@ -98,7 +137,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -107,7 +145,7 @@ const displayAll = data => {
                 <img
                   src="${fruitTree.image}"
                   alt=""
-                  class="rounded-xl block"
+                  class="rounded-xl block card-img"
                 />
               </figure>
               <div class="card-body p-0">
@@ -141,7 +179,21 @@ const displayAll = data => {
               `
               cardContainer.appendChild(tree)
 
-          })
+            } )
+            // end
+            // const cardTitle = document.querySelectorAll( '.card-title' )
+            // const cardImg = document.querySelectorAll('.card-img')
+            //   cardTitle.forEach( title => {
+            //     title.addEventListener( 'click', () => {
+            //       // modal events start here
+            //       // my_modal_3.showModal()
+            //       console.log(title, 'click')
+
+            //     }
+            //   )
+            // })
+
+
         })
       }
       // if Flowering Tree ends
@@ -156,7 +208,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -214,7 +265,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -272,7 +322,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -330,7 +379,7 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
+             
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -388,7 +437,7 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
+              
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -446,7 +495,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -504,7 +552,7 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
+              
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -562,7 +610,6 @@ const displayAll = data => {
           .then( plants => {
             const fruitPlantsArr = plants.plants
             fruitPlantsArr.forEach( fruitTree => {
-              console.log(fruitTree)
               const tree = document.createElement( 'div' )
               tree.innerHTML = `
               
@@ -612,11 +659,7 @@ const displayAll = data => {
 
 
 
-
-
-
-
-
+      
       treesClasses.forEach( el => {
         el.classList.remove('active')
       } )

@@ -82,48 +82,57 @@ const displayAll = data => {
                 </div>
               </div>
             </div>
-              
-              
               `
               cardContainer.appendChild( tree )
             }
-              // end
-            )
+          )
+          // card append end
+
+            // card title click event
             const cardTitle = document.querySelectorAll('.card-title')
               cardTitle.forEach( title => {
                 title.addEventListener( 'click', () => {
-                  // modal events start here
-                  
                   const treeId = title.getAttribute( 'id' )
-                  console.log(treeId)
-                  if ( title.innerText == 'Mango Tree' ) {
+
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
                     const modalContainer = document.getElementById( 'my_modal_3' )
                     modalContainer.innerHTML = ''
                     const modals = document.createElement( 'div' )
-                    console.log(treeId)
+                    
                     modals.innerHTML = `
                     <div class="modal-box">
                       <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                       </form>
-                      <h3 class="text-xl font-bold mb-3 cursor-pointer">Mango Tree</h3>
-                      
-                      <p>id=${treeId}</p>
-
-                      <img src="https://i.ibb.co.com/cSQdg7tf/mango-min.jpg" class="h-[300px] w-full object-cover rounded-lg">
-
-                      <p class="py-1 cursor-pointer"><span class="font-bold">Category:</span> tree</p>
-                      <p class="py-1 cursor-pointer"><span class="font-bold">Price:</span> 5000</p>
-                      <p class="py-1 cursor-pointer"><span class="font-bold">Description:</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas odio mollitia nisi repellat, enim impedit consequatur molestias veritatis quod corporis, ipsum quia ea? Sint, libero? Quis quidem totam repellat debitis.</p>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
                     </div>
-                    
                     `
                     modalContainer.appendChild( modals )
                     my_modal_3.showModal()
+                    
                   }
+
                 }
               )
-            })
+              } )
+            
+            
           } )
       } 
       // if fruits ends
@@ -149,7 +158,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -180,19 +189,55 @@ const displayAll = data => {
               cardContainer.appendChild(tree)
 
             } )
-            // end
-            // const cardTitle = document.querySelectorAll( '.card-title' )
-            // const cardImg = document.querySelectorAll('.card-img')
-            //   cardTitle.forEach( title => {
-            //     title.addEventListener( 'click', () => {
-            //       // modal events start here
-            //       // my_modal_3.showModal()
-            //       console.log(title, 'click')
+            // card append end
+            
+            
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
 
-            //     }
-            //   )
-            // })
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
 
+                }
+              )
+              } )
+            // end card title event
+            
 
         })
       }
@@ -220,7 +265,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -250,13 +295,61 @@ const displayAll = data => {
               `
               cardContainer.appendChild(tree)
 
-          })
+            } )
+            // card append end
+
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
+
         })
       }
       // if Shade Tree ends
 
 
-      // if category is Shade Tree
+      // if category is Meidcinal Tree
       if ( categoryName.innerText == 'Medicinal Tree' ) {
         const cardContainer = document.getElementById( "card-container" )
         cardContainer.innerHTML = ''
@@ -277,7 +370,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -306,8 +399,54 @@ const displayAll = data => {
               
               `
               cardContainer.appendChild(tree)
+            } )
+            // card append end
 
-          })
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Medicinal Tree ends
@@ -334,7 +473,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -363,8 +502,54 @@ const displayAll = data => {
               
               `
               cardContainer.appendChild(tree)
+            } )
+            // card append end
 
-          })
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Timber Tree ends
@@ -392,7 +577,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -421,8 +606,54 @@ const displayAll = data => {
               
               `
               cardContainer.appendChild(tree)
+            } )
+            // card append end
 
-          })
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Evergreen Tree ends
@@ -450,7 +681,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -479,14 +710,60 @@ const displayAll = data => {
               
               `
               cardContainer.appendChild(tree)
+            } )
+            // card append end
 
-          })
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Ornamental Plant ends
 
 
-            // if category is Bamboo
+      // if category is Bamboo
       if ( categoryName.innerText == 'Bamboo' ) {
         const cardContainer = document.getElementById( "card-container" )
         cardContainer.innerHTML = ''
@@ -507,7 +784,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -537,7 +814,54 @@ const displayAll = data => {
               `
               cardContainer.appendChild(tree)
 
-          })
+            } )
+            // card append end
+
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Bamboo ends
@@ -565,7 +889,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -595,7 +919,55 @@ const displayAll = data => {
               `
               cardContainer.appendChild(tree)
 
-          })
+            } )
+            
+            // card append end
+
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Climber ends
@@ -622,7 +994,7 @@ const displayAll = data => {
                 />
               </figure>
               <div class="card-body p-0">
-                <h2 class="card-title mt-3">${fruitTree.name}</h2>
+                <h2 id="${fruitTree.id}" class="card-title mt-3 cursor-pointer">${fruitTree.name}</h2>
                 <p>
                   ${fruitTree.description}
                 </p>
@@ -652,14 +1024,62 @@ const displayAll = data => {
               `
               cardContainer.appendChild(tree)
 
-          })
+            } )
+            // card append end
+
+            // card title click event
+            const cardTitle = document.querySelectorAll( '.card-title' )
+            // console.log(cardTitle)
+              cardTitle.forEach( title => {
+                title.addEventListener( 'click', () => {
+                  const treeId = title.getAttribute( 'id' )
+                  
+                  // fetching tree data after clickig title by id
+                  const getTree = ( id ) => {
+                    fetch( `https://openapi.programming-hero.com/api/plant/${ treeId }` )
+                      .then( res => res.json() )
+                      .then( data => {
+                        displayTree(data)
+                      })
+                  }
+
+                  getTree( treeId )
+                  const displayTree = (data) => {
+                    const treeDt = data.plants
+                    
+                    const modalContainer = document.getElementById( 'my_modal_3' )
+                    modalContainer.innerHTML = ''
+                    const modals = document.createElement( 'div' )
+                    
+                    modals.innerHTML = `
+                    <div class="modal-box">
+                      <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                      </form>
+                      <h3 class="text-xl font-bold mb-3 cursor-pointer">${treeDt.name}</h3>
+                      <img src="${treeDt.image}" class="h-[300px] w-full object-cover rounded-lg">
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Category: </span>${treeDt.category}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Price: </span>${treeDt.price}</p>
+                      <p class="py-1 cursor-pointer"><span class="font-bold">Description: </span>${treeDt.description}</p>
+                    </div>
+                    `
+                    modalContainer.appendChild( modals )
+                    my_modal_3.showModal()
+                    
+                  }
+
+                }
+              )
+              } )
+            // end card title event
         })
       }
       // if Aquatic Plant ends
 
 
 
-      
+
+      // category selecting effect
       treesClasses.forEach( el => {
         el.classList.remove('active')
       } )

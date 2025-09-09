@@ -106,7 +106,7 @@ const displayAll = data => {
                       .then( data => {
                         const treePrice = data.plants.price
                         const treeName = data.plants.name
-                        console.log( treePrice, treeName )
+                        // console.log( treePrice, treeName )
                         
                         // gettin cart container
                         const cartContainer = document.getElementById( 'cart-card-container' )
@@ -121,7 +121,7 @@ const displayAll = data => {
                           <div>
                             <h2 class="font-medium text-lg">${treeName}</h2>
                             <p class="text-xl text-gray-500">
-                              $ <span>${treePrice}</span> x <span>1</span>
+                              $ <span class="tree-price">${treePrice}</span> x <span>1</span>
                             </p>
                           </div>
                          <p class="text-gray-500 text-2xl remove-item cursor-pointer">x</p>
@@ -131,7 +131,26 @@ const displayAll = data => {
 
                         // append cart card
                         cartContainer.appendChild( cartCard )
+
+                        // accessing all price in container
+                        let totalPrice = 0
+                        const priceList = document.querySelectorAll( '.tree-price' )
+                        priceList.forEach( price => {
+                          const priceN = parseInt( price.innerText )
+                          console.log(priceN)
+                          totalPrice += priceN
+                        } )
+                        
+                        const totalDefaultPrice = document.getElementById( 'total-default-price' )
+                        totalDefaultPrice.innerText = totalPrice
+                        
+                        // console.log(cartContainer)
                         // end
+
+
+
+
+
                         const removeItem = document.querySelectorAll('.remove-item')
                         removeItem.forEach( item => {
                           item.addEventListener( 'click', ( e ) => {
@@ -150,14 +169,6 @@ const displayAll = data => {
               })
             })
             // cart btns click event end
-
-
-
-
-
-
-
-
 
             // card title click event
             const cardTitle = document.querySelectorAll('.card-title')

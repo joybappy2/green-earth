@@ -137,7 +137,7 @@ const displayAll = data => {
                         const priceList = document.querySelectorAll( '.tree-price' )
                         priceList.forEach( price => {
                           const priceN = parseInt( price.innerText )
-                          console.log(priceN)
+                          // console.log(priceN)
                           totalPrice += priceN
                         } )
                         
@@ -149,11 +149,29 @@ const displayAll = data => {
 
 
 
-
-
                         const removeItem = document.querySelectorAll('.remove-item')
                         removeItem.forEach( item => {
                           item.addEventListener( 'click', ( e ) => {
+                            const removeItemParent = item.parentNode
+                            // console.log( removeItemParent )
+                            const removedPriceItem = removeItemParent.querySelector( ".tree-price" )
+                            const removedPriceN = parseInt(removedPriceItem.innerText)
+
+                            const totalDefaultPrice = document.getElementById( 'total-default-price' )
+                            let totalDefaultPriceN = parseInt( totalDefaultPrice.innerText )
+                        
+                            if ( totalDefaultPriceN > 0 ) {
+                              
+                              totalDefaultPriceN -= removedPriceN
+                            }
+                            totalDefaultPrice.innerText = totalDefaultPriceN
+                            
+                            
+
+
+
+
+
                             const cartoParent = document.getElementById('cart-card-container')
                             const cartoCart = item.parentNode.parentNode
                             // console.log( cartoCart )

@@ -154,6 +154,25 @@ const displayAll = data => {
             })
             // cart btns click event end
 
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
+
             // card title click event
             const cardTitle = document.querySelectorAll('.card-title')
               cardTitle.forEach( title => {
@@ -325,6 +344,22 @@ const displayAll = data => {
             })
             // cart btns click event end
             
+
+            
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
             
             // card title click event
             const cardTitle = document.querySelectorAll( '.card-title' )
@@ -498,6 +533,24 @@ const displayAll = data => {
             })
             // cart btns click event end
 
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
+
             // card title click event
             const cardTitle = document.querySelectorAll( '.card-title' )
             // console.log(cardTitle)
@@ -668,6 +721,24 @@ const displayAll = data => {
             })
             // cart btns click event end
 
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
+
             // card title click event
             const cardTitle = document.querySelectorAll( '.card-title' )
             // console.log(cardTitle)
@@ -836,6 +907,22 @@ const displayAll = data => {
               })
             })
             // cart btns click event end
+
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
 
 
 
@@ -1010,6 +1097,23 @@ const displayAll = data => {
               })
             })
             // cart btns click event end
+
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
 
 
 
@@ -1188,6 +1292,23 @@ const displayAll = data => {
 
 
 
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
+
+
             // card title click event
             const cardTitle = document.querySelectorAll( '.card-title' )
             // console.log(cardTitle)
@@ -1357,6 +1478,26 @@ const displayAll = data => {
               })
             })
             // cart btns click event end
+
+
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
 
 
             // card title click event
@@ -1531,7 +1672,27 @@ const displayAll = data => {
             })
             // cart btns click event end
 
+            
 
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
+
+
+          
 
             // card title click event
             const cardTitle = document.querySelectorAll( '.card-title' )
@@ -1703,6 +1864,24 @@ const displayAll = data => {
               })
             })
             // cart btns click event end
+
+
+
+
+
+            // .............................................................
+            // x button click event starts 
+            const xContainer = document.getElementById('cart-card-container')
+            xContainer.addEventListener( 'click', ( event ) => {
+              const xButton = event.target
+              if ( xButton.classList.contains( 'remove-item' ) ) {
+                const xButtonContainer = xButton.parentNode.parentNode
+                xButtonContainer.remove()
+              }
+              // if end
+            })
+            // x  button click ends
+
 
 
 
